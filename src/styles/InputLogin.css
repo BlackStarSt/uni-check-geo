@@ -1,0 +1,14 @@
+.input-login {
+    height: 50px;
+    width: 280px;
+    padding: 0 10px;
+    border: 0;
+    border-bottom: 3px solid #282A6B;
+    border-radius: 5px 5px 0 0;
+    background-color: #DFDFDF;
+    outline: none;
+}
+
+.input-container-interno {
+    width: 100%;
+}
