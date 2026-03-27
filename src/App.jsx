@@ -1,10 +1,11 @@
 import './App.css'
+import Login from './pages/Login'
 
 function App() {
   return (
     <>
-      <h1>UniCheckGeo</h1>
-      {/* Aqui vai entrar o seu botão de presença e o mapa depois */}
+      {/* <h1>UniCheckGeo</h1> */}
+      <Login />
     </>
   )
 }
