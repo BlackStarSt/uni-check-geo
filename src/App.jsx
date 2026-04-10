@@ -1,11 +1,15 @@
-import './App.css'
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
 
 function App() {
   return (
-    <>
-      <h1>UniCheckGeo</h1>
-      {/* Aqui vai entrar o seu botão de presença e o mapa depois */}
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/home" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
