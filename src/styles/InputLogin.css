@@ -1,0 +1,65 @@
+.input-container,
+.select-container {
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    height: 55px;
+    width: 280px;
+}
+
+.input-container {
+    background-color: #F3F0F8;
+    border: 1px solid #C4C4C4;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.select-container {
+    justify-content: space-between;
+}
+
+.select-custom {
+    width: 70%;
+    height: 70%;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 0 5px;
+}
+
+.select-custom:focus, .select-custom:hover {
+    outline: none;
+    box-shadow: none;
+}
+
+.input-icon-prefix {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.input-login {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.input-container-interno {
+    width: 100%;
+}
+
+.login-link {
+    color: #622584;
+    height: 20px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.login-link > p {
+    text-decoration: 1px solid #622584;
+    font-weight: 500;
+}
