@@ -1,12 +1,20 @@
 import '../styles/InputLogin.css';
 
-function InputLogin({ placeholder, type }) {
+function InputLogin({ placeholder, type, icon, value, onChange }) {
   return (
-    <input 
-      className="input-login" 
-      type={type} 
-      placeholder={placeholder} 
-    />
+    <div className="input-container">
+      {icon && (
+        <img src={icon} alt="" className="input-icon-prefix" />
+      )}
+
+      <input
+        className="input-login"
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+    </div>
   );
 }
 
