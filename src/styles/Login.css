@@ -1,31 +1,19 @@
 .login-container {
     height: 90vh;
-    min-height: 100vh;
+    min-height: 85vh;
     width: 100vw;
     max-width: 500px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     box-sizing: border-box;
 }
 
-.fig-container {
-    height: 17vh;
-    max-height: 150px;
-    width: 100%;
-}
-
-.login-fig-1 {
-    background-color: #E7B036;
-    height: 50px;
-    width: 100%;
-}
-
-.login-fig-2 {
-    background-color: #2E3A89;
-    height: 100px;
-    width: 100%;
+.title {
+    line-height: 35px;
+    width: 210px;
+    text-align: center;
 }
 
 .logo-img {
@@ -45,16 +33,17 @@
 }
 
 .btn-login {
-    width: 100%;
-    max-width: 300px;
-    height: 50px;
+    width: 85%;
+    max-width: 280px;
+    height: 60px;
     color: #FFFFFF;
-    background-color: #2E3A89;
+    background-color: #622584;
     border: 0;
-    border-radius: 8px;
+    border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
     transition: filter 0.2s;
+    margin-top: 50px;
 }
 
 .btn-login:active {
@@ -62,5 +51,5 @@
 }
 
 .btn-login:hover {
-    background-color: #E7B036;
+    background-color: #5a0886;
 }
