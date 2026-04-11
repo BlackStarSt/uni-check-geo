@@ -26,7 +26,6 @@ function Home() {
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, (usuarioLogado) => {
             if (usuarioLogado) {
-                // Se houver login, pegamos o nome (ou e-mail como fallback) e a foto
                 setUser(usuarioLogado.displayName || usuarioLogado.email.split('@')[0]);
                 setUserPhoto(usuarioLogado.photoURL);
             } else {
