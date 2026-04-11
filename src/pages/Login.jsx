@@ -47,7 +47,6 @@ function Login() {
         } catch (error) {
             console.error("Erro no processo de login:", error.code);
 
-            // Um toque de clareza nos erros
             if (error.code === 'auth/wrong-password') {
                 alert("Senha incorreta.");
             } else if (error.code === 'auth/invalid-email') {
