@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import { db } from '../services/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
@@ -117,16 +118,17 @@ function Home() {
                 <h3 className="list-title">Próximos eventos</h3>
                 <div className="eventos-list">
                     {allEventos.map(e => (
-                        <EventoItem
-                            key={e.id}
-                            image={e.image}
-                            alt={e.eventName}
-                            eventName={e.eventName}
-                            local={e.local}
-                            dateTime={e.dateTime}
-                            status={e.status}
-                            timer={e.timer}
-                        />
+                        <Link to={`/check-in/${e.id}`} key={e.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <EventoItem
+                                image={e.image}
+                                alt={e.eventName}
+                                eventName={e.eventName}
+                                local={e.local}
+                                dateTime={e.dateTime}
+                                status={e.status}
+                                timer={e.timer}
+                            />
+                        </Link>
                     ))}
                 </div>
             </div>
