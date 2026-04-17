@@ -1,0 +1,115 @@
+.checkIn-container {
+    height: 90vh;
+    min-height: 85vh;
+    width: 100vw;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.header-container {
+    height: 90px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.checkIn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 75%;
+    height: 80%;
+}
+
+.timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer {
+    height: 128px;
+    width: 128px;
+    border: 8px solid black;
+    border-radius: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-text {
+    font-size: 10px;
+    text-align: center;
+}
+
+.timer-hour {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.timer-obj {
+    font-size: 14px;
+}
+
+.map-container {
+    width: 100%;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.map {
+    width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+
+.btn-checkIn {
+    width: 85%;
+    max-width: 280px;
+    height: 60px;
+    color: #FFFFFF;
+    background-color: #622584;
+    border: 0;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: filter 0.2s;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.btn-checkIn:active {
+    filter: brightness(1.2);
+}
+
+.btn-checkIn:hover {
+    background-color: #5a0886;
+}
+
+.btn-checkIn:disabled {
+    background-color: gray;
+}
+
+.btn-message {
+    font-size: 13px;
+}
