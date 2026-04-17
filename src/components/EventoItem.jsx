@@ -1,63 +1,67 @@
+import { useState, useEffect } from 'react';
 import '../styles/Home.css';
 
-import { useState, useEffect } from 'react';
-
-function EventoItem({ image, eventName, local, dateTime, status, timer }) {
+function EventoItem({ image, eventName, local, dateTime }) {
     const [tempoRestante, setTempoRestante] = useState("00:00");
     const [statusLabel, setStatusLabel] = useState("Carregando...");
 
     useEffect(() => {
-        if (!timer) {
-            console.log("Campo timer não encontrado!");
+        if (!dateTime || typeof dateTime === 'string') {
+            setStatusLabel("Agendado");
+            setTempoRestante("--:--");
             return;
         }
 
-        const inicio = timer.toDate ? timer.toDate().getTime() : new Date(timer).getTime();
-        const limite = inicio + (15 * 60 * 1000);
+        const calcularTudo = () => {
+            try {
+                const agora = new Date().getTime();
+                
+                const inicio = dateTime.toDate ? dateTime.toDate().getTime() : new Date(dateTime).getTime();
+                const limite = inicio + (15 * 60 * 1000);
 
-        const atualizarCronometro = () => {
-            const agora = new Date().getTime();
+                if (isNaN(inicio)) return true;
 
-            if (agora < inicio) {
-                const dif = inicio - agora;
-                const min = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
-                const seg = Math.floor((dif % (1000 * 60)) / 1000);
-                setStatusLabel("Abre em:");
-                setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
-            } else if (agora >= inicio && agora <= limite) {
-                const dif = limite - agora;
-                const min = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
-                const seg = Math.floor((dif % (1000 * 60)) / 1000);
-                setStatusLabel("Tempo restante:");
-                setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
-            } else {
-                setStatusLabel("Encerrado");
-                setTempoRestante("00:00");
+                if (agora < inicio) {
+                    const dif = inicio - agora;
+                    const min = Math.floor(dif / 60000);
+                    const seg = Math.floor((dif % 60000) / 1000);
+                    setStatusLabel("Aguardando...");
+                    setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
+                } else if (agora >= inicio && agora <= limite) {
+                    const dif = limite - agora;
+                    const min = Math.floor(dif / 60000);
+                    const seg = Math.floor((dif % 60000) / 1000);
+                    setStatusLabel("Aberto");
+                    setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
+                } else {
+                    setStatusLabel("Encerrado");
+                    setTempoRestante("00:00");
+                    return true;
+                }
+            } catch (error) {
+                console.error("Erro no cálculo:", error);
                 return true;
             }
             return false;
         };
 
-        atualizarCronometro();
-
-        const interval = setInterval(() => {
-            const parou = atualizarCronometro();
-            if (parou) clearInterval(interval);
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [timer]);
+        const encerrado = calcularTudo();
+        if (!encerrado) {
+            const interval = setInterval(() => {
+                if (calcularTudo()) clearInterval(interval);
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [dateTime]);
 
     const formatarData = (data) => {
-        if (!data) return "Data não disponível";
-
-        const dateObj = data.toDate ? data.toDate() : new Date(data);
-
-        return dateObj.toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            hour: '2-digit',
-            minute: '2-digit'
+        if (!data || typeof data === 'string') return "Horário a definir";
+        const d = data.toDate ? data.toDate() : new Date(data);
+        return d.toLocaleDateString('pt-BR', { 
+            day: '2-digit', 
+            month: 'long', 
+            hour: '2-digit', 
+            minute: '2-digit' 
         });
     };
 
@@ -80,7 +84,7 @@ function EventoItem({ image, eventName, local, dateTime, status, timer }) {
                 <p className="item-status">{tempoRestante}</p>
             </div>
         </div>
-    )
+    );
 }
 
 export default EventoItem;
