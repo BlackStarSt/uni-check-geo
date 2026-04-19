@@ -38,7 +38,7 @@ function Home() {
         return () => unsubscribe();
     }, []);
 
-    // useEffect 02: Buscar os dados
+    // useEffect 02: Buscar os dados (Eventos e Destaques)
     useEffect(() => {
 
         const carregarDados = async () => {
@@ -86,7 +86,7 @@ function Home() {
             }
         };
 
-    }, [allDestaques]);
+    }, []);
 
     return (
         <div className="home-container">
