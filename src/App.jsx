@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import CheckIn from './pages/CheckIn';
+import Profile from './pages/Profile';
 
 function App() {
   const [user, setUser] = useState(null);
