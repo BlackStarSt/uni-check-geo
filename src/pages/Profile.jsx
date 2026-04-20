@@ -41,7 +41,7 @@ function Profile() {
                 if (docSnap.exists()) {
                     setUserData(docSnap.data());
                 } else {
-                    console.warn("ID da URL não existe. Tentando o UID do login...");
+                    console.warn("ID não existe. Tentando o UID do login...");
 
                     const fallbackRef = doc(db, "users", currentUser.uid);
                     const fallbackSnap = await getDoc(fallbackRef);
@@ -49,7 +49,7 @@ function Profile() {
                     if (fallbackSnap.exists()) {
                         setUserData(fallbackSnap.data());
                     } else {
-                        console.error("Nenhum documento encontrado no Firestore para este usuário.");
+                        console.error("Nenhum documento encontrado para este usuário.");
                     }
                 }
             } catch (error) {
@@ -70,20 +70,25 @@ function Profile() {
         const file = event.target.files[0];
         if (!file || !auth.currentUser) return;
 
-        const novaUrl = URL.createObjectURL(file);
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
 
-        try {
-            const userDocRef = doc(db, "users", auth.currentUser.uid);
+        reader.onload = async () => {
+            const base64Image = reader.result;
 
-            await setDoc(userDocRef, {
-                userPhoto: novaUrl
-            }, { merge: true });
+            try {
+                const userDocRef = doc(db, "users", auth.currentUser.uid);
 
-            setUserData(prev => ({ ...prev, userPhoto: novaUrl }));
-            alert("Foto atualizada!");
-        } catch (e) {
-            console.error("Erro ao salvar:", e);
-        }
+                await setDoc(userDocRef, {
+                    userPhoto: base64Image
+                }, { merge: true });
+
+                setUserData(prev => ({ ...prev, userPhoto: base64Image }));
+                alert("Foto atualizada com sucesso!");
+            } catch (e) {
+                console.error("Erro ao salvar:", e);
+            }
+        };
     };
 
     useEffect(() => {
