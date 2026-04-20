@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from '../services/firebaseConfig';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, query, where, orderBy, getDocs } from 'firebase/firestore';
 
-import voltarIcon from '../assets/icons/seta-esquerda.png';
+import VoltarButton from '../components/VoltarButton';
+
+import simIcon from '../assets/icons/simIcon.png';
+import naoIcon from '../assets/icons/naoIcon.png';
 
 import '../styles/Profile.css';
 
@@ -16,7 +19,8 @@ function Profile() {
 
     const auth = getAuth();
 
-    const navigate = useNavigate();
+    const [historico, setHistorico] = useState([]);
+    const statusRealizado = true;
 
     useEffect(() => {
         const buscarDados = async () => {
@@ -82,12 +86,39 @@ function Profile() {
         }
     };
 
+    useEffect(() => {
+        const buscarHistorico = async () => {
+            const currentUser = auth.currentUser;
+            if (!currentUser) return;
+
+            const targetId = id || currentUser.uid;
+
+            try {
+                const q = query(
+                    collection(db, "presencas"),
+                    where("userId", "==", targetId)
+                );
+
+                const querySnapshot = await getDocs(q);
+                const docs = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+
+                const listaOrdenada = docs.sort((a, b) => b.checkInDate - a.checkInDate);
+                setHistorico(listaOrdenada);
+
+            } catch (error) {
+                console.error("Erro ao buscar histórico:", error);
+            }
+        };
+
+        buscarHistorico();
+    }, [id, auth.currentUser]);
+
     return (
         <div className="container-profile">
-            <div className="btn-voltar-container" onClick={() => navigate(-1)}>
-                <img src={voltarIcon} alt="Voltar" className="icon-voltar" />
-                <span>Voltar</span>
-            </div>
+            <VoltarButton />
             <div className="profile-card">
                 <div className="profile-header">
                     <div className="avatar-container" onClick={abrirSeletorSArquivos}>
@@ -121,6 +152,32 @@ function Profile() {
                     <div className="detail-item">
                         <label>Email</label>
                         <p>{userData?.email}</p>
+                    </div>
+                </div>
+                <div className="history-container">
+                    <h3 className="history-title">Histórico de Presença</h3>
+                    <div className="history-list">
+                        {historico.length > 0 ? (
+                            historico.map((item) => (
+                                <div className="history-item" key={item.id}>
+                                    <div className="item-details">
+                                        <h2 className="item-status-detail">
+                                            {item.status === 'realizado' ? "Check-in realizado" : "Check-in não realizado"}
+                                        </h2>
+                                        <p>{item.eventName}</p>
+                                        <p>{item.checkInDate?.toDate().toLocaleString('pt-BR')}</p>
+                                    </div>
+                                    <div className={`item-icon ${item.status === 'realizado' ? 'status-sim' : 'status-nao'}`}>
+                                        <img
+                                            src={item.status === 'realizado' ? simIcon : naoIcon}
+                                            alt="Status"
+                                        />
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="empty-history">Nenhuma presença registrada</p>
+                        )}
                     </div>
                 </div>
             </div>
