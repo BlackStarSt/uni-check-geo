@@ -37,7 +37,7 @@ function HeaderItem({ logo, user, userPhoto }) {
                 />
                 {menuOpen && (
                     <div className="dropdown-menu">
-                        <Link to="/perfil" className="menu-item">Perfil</Link>
+                        <Link to="/profile" className="menu-item">Perfil</Link>
                         <button onClick={handleLogout} className="menu-item logout-btn">
                             Sair
                         </button>
