@@ -9,7 +9,7 @@ import voltarIcon from '../assets/icons/seta-esquerda.png';
 
 import '../styles/Profile.css';
 
-function Perfil() {
+function Profile() {
     const { id } = useParams();
     const [userData, setUserData] = useState(null);
     const fileInputRef = useRef(null);
@@ -128,4 +128,4 @@ function Perfil() {
     );
 }
 
-export default Perfil;
+export default Profile;
