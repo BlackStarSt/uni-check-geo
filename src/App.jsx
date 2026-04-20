@@ -35,6 +35,10 @@ function App() {
           path="/check-in/:id" 
           element={user ? <CheckIn /> : <Navigate to="/login" replace />} 
         />
+        <Route 
+          path="/profile/:id" 
+          element={user ? <Profile /> : <Navigate to="/login" replace />} 
+        />
       </Routes>
     </BrowserRouter>
   )
