@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { db } from '../services/firebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDocs, getDoc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import '../styles/Home.css';
@@ -25,16 +25,24 @@ function Home() {
     // useEffect 01: Buscar o usuário logado
     useEffect(() => {
         const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, (usuarioLogado) => {
+        const unsubscribe = onAuthStateChanged(auth, async (usuarioLogado) => {
             if (usuarioLogado) {
-                setUser(usuarioLogado.displayName || usuarioLogado.email.split('@')[0]);
-                setUserPhoto(usuarioLogado.photoURL);
+                const docRef = doc(db, "users", usuarioLogado.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const dados = docSnap.data();
+                    setUser(dados.user || usuarioLogado.displayName);
+                    setUserPhoto(dados.userPhoto || usuarioLogado.photoURL);
+                } else {
+                    setUser(usuarioLogado.displayName || "Usuário");
+                    setUserPhoto(usuarioLogado.photoURL);
+                }
             } else {
                 setUser("Visitante");
                 setUserPhoto(null);
             }
         });
-
         return () => unsubscribe();
     }, []);
 
@@ -94,7 +102,7 @@ function Home() {
                 <HeaderItem
                     logo={Logo}
                     user={user}
-                    userPhoto={null}
+                    userPhoto={userPhoto}
                 />
             </div>
             <input type="text" className="home-input" placeholder='Buscar' />
