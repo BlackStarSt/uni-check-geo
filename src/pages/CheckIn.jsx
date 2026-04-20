@@ -11,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import VoltarButton from '../components/VoltarButton';
 
 let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -130,6 +131,8 @@ function CheckIn() {
 
     return (
         <div className='checkIn-container'>
+            <VoltarButton />
+
             <div className="header-container">
                 <h2 className="checkIn-title">Detalhes do Check-In</h2>
             </div>
