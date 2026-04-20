@@ -11,13 +11,11 @@ import Profile from './pages/Profile';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (usuario) => {
       setUser(usuario);
-      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -27,18 +25,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={!user ? <Login /> : <Navigate to="/home" replace />} />
-        <Route path='/login' element={!user ? <Login /> : <Navigate to="/home" replace />} />
         <Route 
           path="/home" 
-          element={user ? <Home /> : <Navigate to="/login" replace />} 
+          element={user ? <Home /> : <Navigate to="/" replace />} 
         />
         <Route 
           path="/check-in/:id" 
-          element={user ? <CheckIn /> : <Navigate to="/login" replace />} 
+          element={user ? <CheckIn /> : <Navigate to="/" replace />} 
         />
         <Route 
           path="/profile/:id" 
-          element={user ? <Profile /> : <Navigate to="/login" replace />} 
+          element={user ? <Profile /> : <Navigate to="/" replace />} 
         />
       </Routes>
     </BrowserRouter>

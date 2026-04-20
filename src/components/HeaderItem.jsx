@@ -9,6 +9,8 @@ function HeaderItem({ logo, user, userPhoto }) {
     const navigate = useNavigate();
     const auth = getAuth();
 
+    const currentUser = auth.currentUser;
+
     const handleLogout = async () => {
         try {
             await signOut(auth);
@@ -20,7 +22,7 @@ function HeaderItem({ logo, user, userPhoto }) {
 
     const formatName = (name) => {
         if (!name) return "Usuário";
-        return name.split(' ')[0];
+        return typeof name === 'string' ? name.split(' ')[0] : "Usuário";
     };
 
     return (
@@ -37,7 +39,13 @@ function HeaderItem({ logo, user, userPhoto }) {
                 />
                 {menuOpen && (
                     <div className="dropdown-menu">
-                        <Link to="/perfil" className="menu-item">Perfil</Link>
+                        <Link 
+                            to={`/profile/${currentUser?.uid}`} 
+                            className="menu-item"
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            Perfil
+                        </Link>
                         <button onClick={handleLogout} className="menu-item logout-btn">
                             Sair
                         </button>
