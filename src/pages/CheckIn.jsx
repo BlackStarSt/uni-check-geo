@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { db } from '../services/firebaseConfig';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -129,6 +130,42 @@ function CheckIn() {
         ? [eventoData.geoLocation.latitude, eventoData.geoLocation.longitude]
         : [0, 0];
 
+    const handleCheckInDB = async () => {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (!user) {
+            alert("Erro: Usuário não autenticado.");
+            return;
+        }
+
+        const presencaId = `${user.uid}_${id}`;
+        const presencaRef = doc(db, "presencas", presencaId);
+
+        try {
+            const docSnap = await getDoc(presencaRef);
+            if (docSnap.exists()) {
+                alert("Você já realizou o check-in para este evento!");
+                return;
+            }
+
+            await setDoc(presencaRef, {
+                userId: user.uid,
+                eventId: id,
+                eventName: eventoData.eventName,
+                checkInDate: serverTimestamp(),
+                status: "realizado"
+            });
+
+            alert("Check-in confirmado com sucesso!");
+            navigate(`/profile/${user.uid}`);
+
+        } catch (error) {
+            console.error("Erro ao salvar presença:", error);
+            alert("Erro técnico ao registrar presença.");
+        }
+    };
+
     return (
         <div className='checkIn-container'>
             <VoltarButton />
@@ -187,7 +224,7 @@ function CheckIn() {
                     <button
                         className={`btn-checkIn ${radiusStatus === 'dentro' && isTimeValid ? 'ativo' : 'bloqueado'}`}
                         disabled={radiusStatus !== 'dentro' || !isTimeValid}
-                        onClick={() => alert("Check-in realizado com sucesso!")}
+                        onClick={handleCheckInDB}
                     >
                         Realizar Check-in
                     </button>
