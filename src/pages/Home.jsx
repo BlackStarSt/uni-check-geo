@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { db } from '../services/firebaseConfig';
 import { collection, doc, getDocs, getDoc } from 'firebase/firestore';
@@ -23,6 +23,7 @@ function Home() {
     const scrollRef = useRef(null);
 
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     // useEffect 01: Buscar o usuário logado
     useEffect(() => {
@@ -100,6 +101,27 @@ function Home() {
 
     }, []);
 
+    const handleAcessoEvento = async (eventId) => {
+        const auth = getAuth();
+        
+        const userId = auth.currentUser?.uid;
+        if (!userId) return;
+
+        try {
+            const presencaId = `${userId}_${eventId}`;
+            const presencaRef = doc(db, "presencas", presencaId);
+            const docSnap = await getDoc(presencaRef);
+
+            if (docSnap.exists()) {
+                navigate(`/check-in/${eventId}`);
+            } else {
+                navigate(`/event-register/${eventId}`);
+            }
+        } catch (error) {
+            console.error("Erro ao validar fluxo de navegação:", error);
+        }
+    };
+
     if (loading) {
         return (
             <div className="loading-container">
@@ -145,7 +167,11 @@ function Home() {
                 </div>
                 <div className="eventos-list">
                     {allEventos.map(e => (
-                        <Link to={`/check-in/${e.id}`} key={e.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <div
+                            key={e.id}
+                            onClick={() => handleAcessoEvento(e.id)}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <EventoItem
                                 image={e.image}
                                 alt={e.eventName}
@@ -155,7 +181,7 @@ function Home() {
                                 status={e.status}
                                 timer={e.timer}
                             />
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </div>
