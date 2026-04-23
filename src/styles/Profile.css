@@ -1,0 +1,196 @@
+.container-profile {
+    height: 90vh;
+    min-height: 85vh;
+    width: 100vw;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.btn-voltar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 95%;
+    justify-content: flex-start;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.icon-voltar {
+    height: 35px;
+    width: 40px;
+}
+
+.btn-voltar-container:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.icon-voltar {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn-voltar-container:hover .icon-voltar {
+    transform: translateX(-3px);
+    filter: invert(0.25);
+}
+
+.profile-card {
+    width: 90%;
+    height: 100%;
+}
+
+.profile-header {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #6B3A8B;
+}
+
+.userPhoto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.avatar-container:hover .avatar-overlay {
+    opacity: 1;
+}
+
+.profile-name {
+    color: black;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.profile-badge {
+    background: #333;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.profile-details {
+    text-align: left;
+    border-top: 1px solid #6B3A8B;
+    padding-top: 20px;
+}
+
+.detail-item {
+    margin-bottom: 15px;
+}
+
+.detail-item label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.detail-item p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.history-container {
+    padding-top: 20px;
+    border-top: 1px solid #6B3A8B;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.history-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: #6B3A8B;
+    border-radius: 10px;
+}
+
+.empty-history {
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+    padding: 20px;
+}
+
+.history-item {
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #6B3A8B;
+    border-left: 6px solid #6B3A8B;
+    transition: transform 0.2s ease;
+}
+
+.history-item:hover {
+    transform: translateX(5px);
+}
+
+.item-details h2.item-status-detail {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.item-details p {
+    font-size: 0.85rem;
+    margin: 2px 0;
+}
+
+.item-icon img {
+    width: 32px;
+    height: 32px;
+}
+
+.history-item:has(.status-sim) {
+    border-left-color: #2e7d32; 
+}
+
+.history-item:has(.status-nao) {
+    border-left-color: #d32f2f;
+}
