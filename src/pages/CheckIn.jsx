@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { db } from '../services/firebaseConfig';
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, updateDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
@@ -148,17 +148,22 @@ function CheckIn() {
 
         try {
             const docSnap = await getDoc(presencaRef);
-            if (docSnap.exists()) {
-                alert("Você já realizou o check-in para este evento!");
+
+            if (!docSnap.exists()) {
+                alert("Erro: Você precisa se inscrever no evento antes de fazer o check-in.");
                 return;
             }
 
-            await setDoc(presencaRef, {
-                userId: user.uid,
-                eventId: id,
-                eventName: eventoData.eventName,
-                checkInDate: serverTimestamp(),
-                status: "realizado"
+            const dadosPresenca = docSnap.data();
+
+            if (dadosPresenca.status === "realizado") {
+                alert("O seu check-in já foi confirmado anteriormente!");
+                return;
+            }
+
+            await updateDoc(presencaRef, {
+                status: "realizado",
+                checkInDate: serverTimestamp()
             });
 
             alert("Check-in confirmado com sucesso!");

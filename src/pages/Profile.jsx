@@ -9,6 +9,7 @@ import VoltarButton from '../components/VoltarButton';
 
 import simIcon from '../assets/icons/simIcon.png';
 import naoIcon from '../assets/icons/naoIcon.png';
+import pausaIcon from '../assets/icons/pausaIcon.png';
 
 import '../styles/Profile.css';
 
@@ -179,23 +180,54 @@ function Profile() {
                     <h3 className="history-title">Histórico de Presença</h3>
                     <div className="history-list">
                         {historico.length > 0 ? (
-                            historico.map((item) => (
-                                <div className="history-item" key={item.id}>
-                                    <div className="item-details">
-                                        <h2 className="item-status-detail">
-                                            {item.status === 'realizado' ? "Check-in realizado" : "Check-in não realizado"}
-                                        </h2>
-                                        <p>{item.eventName}</p>
-                                        <p>{item.checkInDate?.toDate().toLocaleString('pt-BR')}</p>
+                            historico.map((item) => {
+                                const dataEventoRaw = item.eventDate?.toDate ? item.eventDate.toDate() : null;
+                                const dataCheckInRaw = item.checkInDate?.toDate ? item.checkInDate.toDate() : null;
+
+                                const agora = new Date();
+
+                                const tempoExpirado = dataEventoRaw
+                                    ? agora.getTime() > (dataEventoRaw.getTime() + (15 * 60 * 1000))
+                                    : false;
+
+                                let textoStatus = "";
+                                let iconeStatus = naoIcon;
+                                let classeStatus = "status-nao";
+                                let dataParaExibir = dataEventoRaw;
+
+                                if (item.status === 'realizado') {
+                                    textoStatus = "Presença Confirmada";
+                                    iconeStatus = simIcon;
+                                    classeStatus = "status-sim";
+                                    dataParaExibir = dataCheckInRaw;
+                                } else if (item.status === 'inscrito') {
+                                    if (tempoExpirado) {
+                                        textoStatus = "Check-in não realizado (Expirado)";
+                                        iconeStatus = naoIcon;
+                                        classeStatus = "status-nao";
+                                    } else {
+                                        textoStatus = "Inscrição Confirmada";
+                                        iconeStatus = pausaIcon;
+                                        classeStatus = "status-espera";
+                                    }
+                                }
+
+                                return (
+                                    <div className="history-item" key={item.id}>
+                                        <div className="item-details">
+                                            <h2 className="item-status-detail">{textoStatus}</h2>
+                                            <p><strong>{item.eventName}</strong></p>
+                                            <p>
+                                                <strong>{item.status === 'realizado' ? "Check-in em: " : "Data do Evento: "}</strong>
+                                                {dataParaExibir ? dataParaExibir.toLocaleString('pt-BR') : "Horário não definido"}
+                                            </p>
+                                        </div>
+                                        <div className={`item-icon ${classeStatus}`}>
+                                            <img src={iconeStatus} alt="Status" />
+                                        </div>
                                     </div>
-                                    <div className={`item-icon ${item.status === 'realizado' ? 'status-sim' : 'status-nao'}`}>
-                                        <img
-                                            src={item.status === 'realizado' ? simIcon : naoIcon}
-                                            alt="Status"
-                                        />
-                                    </div>
-                                </div>
-                            ))
+                                );
+                            })
                         ) : (
                             <p className="empty-history">Nenhuma presença registrada</p>
                         )}

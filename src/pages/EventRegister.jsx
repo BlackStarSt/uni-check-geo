@@ -1,9 +1,12 @@
 import '../styles/EventRegister.css';
+
 import VoltarButton from '../components/VoltarButton';
+
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
 import { db, auth } from '../services/firebaseConfig';
-import { doc, getDoc, collection, query, where, getDocs, addDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs, setDoc } from 'firebase/firestore';
 
 import { MapContainer, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -51,6 +54,9 @@ function EventRegister() {
         const userId = auth.currentUser?.uid;
         if (!userId) return;
 
+        const presencaId = `${userId}_${id}`;
+        const presencaRef = doc(db, "presencas", presencaId);
+
         try {
             const q = query(
                 collection(db, "presencas"),
@@ -64,13 +70,14 @@ function EventRegister() {
                 return;
             }
 
-            await addDoc(collection(db, "presencas"), {
+            await setDoc(presencaRef, {
                 userId: userId,
                 eventId: id,
                 eventName: evento.eventName,
                 local: evento.local,
-                checkInDate: new Date(),
-                inscrito: "confirmado"
+                eventDate: evento.dateTime,
+                inscritoDate: new Date(),
+                status: "inscrito"
             });
 
             alert("Inscrição realizada!");
@@ -84,7 +91,7 @@ function EventRegister() {
         return (
             <div className="loading-container">
                 <div className="loader-visual"><div className="dot"></div>
-                <div className="outline"></div></div>
+                    <div className="outline"></div></div>
                 <p className="loading-text">Carregando...</p>
             </div>
         );
