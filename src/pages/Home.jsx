@@ -22,6 +22,8 @@ function Home() {
     const [allDestaques, setAllDestaques] = useState([]);
     const scrollRef = useRef(null);
 
+    const [loading, setLoading] = useState(true);
+
     // useEffect 01: Buscar o usuário logado
     useEffect(() => {
         const auth = getAuth();
@@ -70,6 +72,8 @@ function Home() {
                 setAllDestaques(listaDestaques);
             } catch (error) {
                 console.error("Erro ao buscar dados:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -95,6 +99,18 @@ function Home() {
         };
 
     }, []);
+
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Carregando...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="home-container">

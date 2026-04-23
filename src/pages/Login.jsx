@@ -22,8 +22,11 @@ function Login() {
     const [senha, setSenha] = useState('');
     const [perfil, setPerfil] = useState('aluno');
 
+    const [loading, setLoading] = useState(false);
+
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
         try {
             const q = query(collection(db, "users"), where("matricula", "==", matricula));
@@ -31,6 +34,7 @@ function Login() {
 
             if (querySnapshot.empty) {
                 alert("Matrícula não encontrada.");
+                setLoading(false);
                 return;
             }
 
@@ -38,6 +42,7 @@ function Login() {
 
             if (userData.perfil !== perfil) {
                 alert("Perfil selecionado incorreto para esta matrícula.");
+                setLoading(false);
                 return;
             }
 
@@ -46,6 +51,7 @@ function Login() {
 
         } catch (error) {
             console.error("Erro no processo de login:", error.code);
+            setLoading(false);
 
             if (error.code === 'auth/wrong-password') {
                 alert("Senha incorreta.");
@@ -54,7 +60,7 @@ function Login() {
             } else {
                 alert("Erro ao tentar entrar. Tente novamente mais tarde.");
             }
-        }
+        } 
     };
 
     const handleEsqueciSenha = async (e) => {
@@ -92,6 +98,18 @@ function Login() {
         { value: 'admin', label: 'Admin' }
     ];
 
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Carregando...</p>
+            </div>
+        );
+    }
+
     return (
         <div className="login-container">
             <img src={LogoImg} className='logo-img' />
@@ -103,7 +121,7 @@ function Login() {
                 <InputLogin type="text" placeholder="Matrícula Institucional" icon={user_icon} value={matricula} onChange={(e) => setMatricula(e.target.value)} />
                 <InputLogin type="password" placeholder="Senha" icon={password_icon} value={senha} onChange={(e) => setSenha(e.target.value)} />
                 <SelectLogin label="Perfil" id="userPerfil" name="userPerfil" icon={perfil_icon} options={opcoesPerfil} value={perfil} onChange={(e) => setPerfil(e.target.value)} />
-                <button type="submit" className="btn-login">
+                <button type="submit" className="btn-login" disabled={loading}>
                     Entrar
                 </button>
             </form>

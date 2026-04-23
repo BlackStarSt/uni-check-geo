@@ -22,6 +22,8 @@ function Profile() {
     const [historico, setHistorico] = useState([]);
     const statusRealizado = true;
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const buscarDados = async () => {
             const auth = getAuth();
@@ -115,11 +117,25 @@ function Profile() {
 
             } catch (error) {
                 console.error("Erro ao buscar histórico:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
         buscarHistorico();
     }, [id, auth.currentUser]);
+
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Carregando...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="container-profile">

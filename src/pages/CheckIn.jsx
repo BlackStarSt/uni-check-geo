@@ -44,6 +44,8 @@ function CheckIn() {
     const [tempoRestante, setTempoRestante] = useState("");
     const [isTimeValid, setIsTimeValid] = useState(true);
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         const buscarEvento = async () => {
             try {
@@ -57,6 +59,8 @@ function CheckIn() {
                 }
             } catch (error) {
                 console.error("Erro ao conectar com Firebase:", error);
+            } finally {
+                setLoading(false);
             }
         };
         if (id) buscarEvento();
@@ -165,6 +169,18 @@ function CheckIn() {
             alert("Erro técnico ao registrar presença.");
         }
     };
+
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Carregando...</p>
+            </div>
+        );
+    }
 
     return (
         <div className='checkIn-container'>

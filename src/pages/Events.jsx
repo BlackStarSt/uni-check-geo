@@ -14,6 +14,8 @@ function Events() {
 
     const [allEventos, setAllEventos] = useState([]);
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
 
         const carregarDados = async () => {
@@ -30,12 +32,26 @@ function Events() {
                 setAllEventos(listaEventos);
             } catch (error) {
                 console.error("Erro ao buscar dados:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
         carregarDados();
 
     }, []);
+
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Carregando...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="events-container">
