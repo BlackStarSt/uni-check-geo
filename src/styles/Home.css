@@ -176,8 +176,20 @@
     font-weight: bold;
 }
 
+.eventos-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .list-title {
     margin-bottom: 10px;
+}
+
+.list-a {
+    color:#6B3A8B;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .eventos {

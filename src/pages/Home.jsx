@@ -123,7 +123,10 @@ function Home() {
                 </div>
             </div>
             <div className="list-container eventos">
-                <h3 className="list-title">Próximos eventos</h3>
+                <div className="eventos-title">
+                    <h3 className="list-title">Próximos eventos</h3>
+                    <a href="#" className="list-a">Ver mais</a>
+                </div>
                 <div className="eventos-list">
                     {allEventos.map(e => (
                         <Link to={`/check-in/${e.id}`} key={e.id} style={{ textDecoration: 'none', color: 'inherit' }}>
