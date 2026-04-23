@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import CheckIn from './pages/CheckIn';
 import Profile from './pages/Profile';
+import Events from './pages/Events';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -36,6 +37,10 @@ function App() {
         <Route 
           path="/profile/:id" 
           element={user ? <Profile /> : <Navigate to="/" replace />} 
+        />
+        <Route 
+          path="/events" 
+          element={user ? <Events /> : <Navigate to="/" replace />} 
         />
       </Routes>
     </BrowserRouter>

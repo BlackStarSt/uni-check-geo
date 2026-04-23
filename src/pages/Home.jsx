@@ -125,7 +125,7 @@ function Home() {
             <div className="list-container eventos">
                 <div className="eventos-title">
                     <h3 className="list-title">Próximos eventos</h3>
-                    <a href="#" className="list-a">Ver mais</a>
+                    <Link to="/events" className="list-a">Ver mais</Link>
                 </div>
                 <div className="eventos-list">
                     {allEventos.map(e => (

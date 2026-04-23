@@ -1,0 +1,36 @@
+.events-container {
+    height: 90vh;
+    min-height: 85vh;
+    width: 100vw;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.header-container {
+    height: 90px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.events-list-page .evento-itens {
+    width: 450px;
+}
+
+.eventos {
+    overflow: hidden;
+}
+
+.events-list-page {
+    overflow-y: auto;
+    scrollbar-width: none;
+    flex: 1;
+}
+
+.events-list-page::-webkit-scrollbar {
+    display: none;
+}
