@@ -1,11 +1,11 @@
 import '../styles/Events.css';
 
-import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { db } from '../services/firebaseConfig';
 import { collection, doc, getDocs, getDoc } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 import VoltarButton from '../components/VoltarButton';
 import EventoItem from '../components/EventoItem';
@@ -13,8 +13,10 @@ import EventoItem from '../components/EventoItem';
 function Events() {
 
     const [allEventos, setAllEventos] = useState([]);
-
     const [loading, setLoading] = useState(true);
+
+    const auth = getAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -41,6 +43,25 @@ function Events() {
 
     }, []);
 
+    const handleAcessoEvento = async (eventId) => {
+        const userId = auth.currentUser?.uid;
+        if (!userId) return;
+
+        try {
+            const presencaId = `${userId}_${eventId}`;
+            const presencaRef = doc(db, "presencas", presencaId);
+            const docSnap = await getDoc(presencaRef);
+
+            if (docSnap.exists()) {
+                navigate(`/check-in/${eventId}`);
+            } else {
+                navigate(`/event-register/${eventId}`);
+            }
+        } catch (error) {
+            console.error("Erro ao validar fluxo de navegação:", error);
+        }
+    };
+
     if (loading) {
         return (
             <div className="loading-container">
@@ -61,7 +82,11 @@ function Events() {
             </div>
             <div className="events-list-page">
                 {allEventos.map(e => (
-                    <Link to={`/check-in/${e.id}`} key={e.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <div
+                        key={e.id}
+                        onClick={() => handleAcessoEvento(e.id)}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <EventoItem
                             image={e.image}
                             alt={e.eventName}
@@ -71,7 +96,7 @@ function Events() {
                             status={e.status}
                             timer={e.timer}
                         />
-                    </Link>
+                    </div>
                 ))}
             </div>
         </div>
