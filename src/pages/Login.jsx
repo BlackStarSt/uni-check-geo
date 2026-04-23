@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { auth, db } from '../services/firebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { query, collection, where, getDocs } from 'firebase/firestore';
 
 import '../styles/Login.css';
@@ -57,6 +57,35 @@ function Login() {
         }
     };
 
+    const handleEsqueciSenha = async (e) => {
+        e.preventDefault();
+
+        if (!matricula) {
+            alert("Por favor, preencha o campo de matrícula para recuperar sua senha.");
+            return;
+        }
+
+        try {
+            const q = query(collection(db, "users"), where("matricula", "==", matricula));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                alert("Matrícula não encontrada no sistema.");
+                return;
+            }
+
+            const userEmail = querySnapshot.docs[0].data().email;
+
+            await sendPasswordResetEmail(auth, userEmail);
+
+            alert(`Um e-mail de redefinição foi enviado. Verifique sua caixa de entrada.`);
+
+        } catch (error) {
+            console.error("Erro ao recuperar senha:", error);
+            alert("Ocorreu um erro ao tentar enviar o e-mail de recuperação.");
+        }
+    };
+
     const opcoesPerfil = [
         { value: 'aluno', label: 'Aluno' },
         { value: 'coordenador', label: 'Coordenador' },
@@ -78,7 +107,13 @@ function Login() {
                     Entrar
                 </button>
             </form>
-            <a href="#" className="login-link"><p>Esqueci minha senha</p></a>
+            <a
+                href="#"
+                className="login-link"
+                onClick={handleEsqueciSenha}
+            >
+                <p>Esqueci minha senha</p>
+            </a>
         </div>
     );
 }
