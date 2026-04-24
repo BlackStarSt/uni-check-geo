@@ -42,7 +42,7 @@ function CheckIn() {
     const [locationStatus, setLocationStatus] = useState('...');
     const [distanciaReal, setDistanciaReal] = useState(null);
     const [tempoRestante, setTempoRestante] = useState("");
-    const [isTimeValid, setIsTimeValid] = useState(true);
+    const [isTimeValid, setIsTimeValid] = useState(false);
 
     const [loading, setLoading] = useState(true);
 
@@ -135,6 +135,21 @@ function CheckIn() {
         : [0, 0];
 
     const handleCheckInDB = async () => {
+        const agora = new Date().getTime();
+        const inicioEvento = eventoData.dateTime.toDate().getTime();
+        const limiteCheckIn = inicioEvento + (15 * 60 * 1000);
+
+        if (agora > limiteCheckIn) {
+            alert("O tempo para check-in expirou!");
+            setIsTimeValid(false);
+            return;
+        }
+
+        if (radiusStatus !== 'dentro') {
+            alert("Você não está no local permitido.");
+            return;
+        }
+
         const auth = getAuth();
         const user = auth.currentUser;
 
@@ -244,7 +259,7 @@ function CheckIn() {
                 <div className="button-container">
                     <button
                         className={`btn-checkIn ${radiusStatus === 'dentro' && isTimeValid ? 'ativo' : 'bloqueado'}`}
-                        disabled={radiusStatus !== 'dentro' || !isTimeValid}
+                        disabled={loading || !eventoData || radiusStatus !== 'dentro' || !isTimeValid}
                         onClick={handleCheckInDB}
                     >
                         Realizar Check-in
