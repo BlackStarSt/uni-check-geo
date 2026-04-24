@@ -80,7 +80,11 @@ function Home() {
 
         carregarDados();
 
+    }, []);
+
+    useEffect(() => {
         const container = scrollRef.current;
+        if (!container) return;
 
         const handleWheel = (e) => {
             if (e.deltaY !== 0) {
@@ -89,21 +93,16 @@ function Home() {
             }
         };
 
-        if (container) {
-            container.addEventListener('wheel', handleWheel, { passive: false });
-        }
+        container.addEventListener('wheel', handleWheel, { passive: false });
 
         return () => {
-            if (container) {
-                container.removeEventListener('wheel', handleWheel);
-            }
+            container.removeEventListener('wheel', handleWheel);
         };
-
-    }, []);
+    }, [loading]);
 
     const handleAcessoEvento = async (eventId) => {
         const auth = getAuth();
-        
+
         const userId = auth.currentUser?.uid;
         if (!userId) return;
 
