@@ -63,6 +63,13 @@ function HeaderItem({ logo, user, userPhoto }) {
                             >
                                 Perfil
                             </Link>
+                            <Link
+                                to={`/ranking`}
+                                className="menu-item"
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                Ranking
+                            </Link>
                             <button onClick={handleLogout} className="menu-item logout-btn">
                                 Sair
                             </button>
