@@ -70,39 +70,6 @@
     50% { opacity: 0.8; }
 }
 
-.btn-voltar-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 95%;
-    justify-content: flex-start;
-    cursor: pointer;
-    padding: 8px 15px;
-    border-radius: 8px;
-    transition: background 0.3s ease;
-    font-size: 0.9rem;
-}
-
-.icon-voltar {
-    height: 35px;
-    width: 40px;
-}
-
-.btn-voltar-container:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.icon-voltar {
-    width: 20px;
-    height: 20px;
-    transition: transform 0.3s ease;
-}
-
-.btn-voltar-container:hover .icon-voltar {
-    transform: translateX(-3px);
-    filter: invert(0.25);
-}
-
 .profile-card {
     width: 90%;
     height: 100%;

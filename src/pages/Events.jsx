@@ -74,22 +74,22 @@ function Events() {
     };
 
     const handleDeletarEvento = async (e, eventId) => {
-    e.stopPropagation();
+        e.stopPropagation();
 
-    const confirmar = window.confirm("Tem certeza que deseja excluir permanentemente este evento?");
-    if (!confirmar) return;
+        const confirmar = window.confirm("Tem certeza que deseja excluir permanentemente este evento?");
+        if (!confirmar) return;
 
-    try {
-        await deleteDoc(doc(db, 'eventos', eventId));
+        try {
+            await deleteDoc(doc(db, 'eventos', eventId));
 
-        setAllEventos((eventosAtuais) => eventosAtuais.filter(evento => evento.id !== eventId));
+            setAllEventos((eventosAtuais) => eventosAtuais.filter(evento => evento.id !== eventId));
 
-        alert("Evento excluído com sucesso!");
-    } catch (error) {
-        console.error("Erro ao deletar evento:", error);
-        alert("Erro ao tentar excluir o evento.");
-    }
-};
+            alert("Evento excluído com sucesso!");
+        } catch (error) {
+            console.error("Erro ao deletar evento:", error);
+            alert("Erro ao tentar excluir o evento.");
+        }
+    };
 
     if (loading) {
         return (
@@ -105,9 +105,11 @@ function Events() {
 
     return (
         <div className="events-container">
-            <VoltarButton />
             <div className="events-header-container">
-                <h2 className="events-title">Todos os Eventos</h2>
+                <div className="events-header-left">
+                    <VoltarButton />
+                    <h2>Todos os Eventos</h2>
+                </div>
                 {isAdmin && (
                     <button
                         className="btn-create-event"

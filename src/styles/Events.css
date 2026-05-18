@@ -16,22 +16,38 @@
 }
 
 .events-header-container {
-    height: 70px;
     width: 100%;
+    height: auto;
+    min-height: 100px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+    align-items: flex-end; 
+    padding: 20px 20px 10px 20px;
     box-sizing: border-box;
+}
+
+.events-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.events-header-left h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #111827;
+    line-height: 1.2;
 }
 
 .btn-create-event {
     background-color: #6B3A8B;
     color: white;
     border: none;
-    padding: 8px 14px;
-    border-radius: 10px;
-    font-size: 12px;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(106, 56, 147, 0.15);
@@ -177,8 +193,18 @@
     }
 
     .events-header-container {
-        height: 60px;
-        padding: 0 16px;
+        height: auto;
+        min-height: 85px; 
+        padding: 12px 16px 6px 16px;
+        align-items: flex-end;
+    }
+
+    .events-header-left {
+        gap: 8px;
+    }
+
+    .events-header-left h2 {
+        font-size: 20px;
     }
 
     .events-list-page {
@@ -187,7 +213,7 @@
     }
 
     .btn-create-event {
-        padding: 6px 12px;
+        padding: 8px 14px;
         font-size: 11px;
     }
 }
