@@ -1,36 +1,61 @@
 .register-container {
     height: 90vh;
-    min-height: 85vh;
-    width: 100vw;
+    min-height: 500px;
+    width: 100%;
     max-width: 500px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+    padding: 15px 0;
+    gap: 15px;
+    overflow: hidden;
 }
 
 .top-bar {
+    width: 100%;
+    height: auto;
+    min-height: 110px;
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
-    width: 95%;
+    align-items: flex-end;
+    padding: 25px 24px 0 24px;
+    box-sizing: border-box;
+}
+
+.edit-event-header-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .event-register {
-    padding: 40px 20px;
-    border-radius: 24px;
+    flex: 1;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 30px;
+    width: 100%;
+    padding: 20px 24px 24px 24px;
+    box-sizing: border-box;
+}
+
+.event-register::-webkit-scrollbar {
+    display: none;
 }
 
 .register-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #111827;
     line-height: 1.2;
+    text-align: left;
+    margin: 0;
 }
 
 .event-details-box {
@@ -39,13 +64,16 @@
     border-radius: 16px;
     margin-bottom: 20px;
     text-align: left;
-    border: 1px solid #6B3A8B;
+    box-sizing: border-box;
+    border: 1px solid #E2E8F0;
     border-left: 4px solid #6B3A8B;
+    background-color: #F8FAFC;
 }
 
 .event-details-box p {
     margin: 8px 0;
-    font-size: 1rem;
+    font-size: 15px;
+    color: #334155;
 }
 
 .event-details-box strong {
@@ -54,48 +82,117 @@
 
 .map-wrapper {
     width: 100%;
-    margin-top: 15px;
-    margin-bottom: 30px;
+    margin-top: 5px;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
 }
 
 .map-subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #4B5563;
+    margin: 0 0 8px 0;
     text-align: left;
 }
 
 .leaflet-container {
     width: 100%;
-    height: 250px;
+    height: 220px;
     border-radius: 12px;
+    border: 1px solid #E2E8F0;
     z-index: 1;
 }
 
-.event-register {
-    width: 92%;
-    padding: 20px;
-    border-radius: 16px;
+.event-rules-box {
+    width: 100%;
+    background-color: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.rules-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #B45309;
+    margin: 0 0 8px 0;
+}
+
+.rules-list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13px;
+    color: #78350F;
     display: flex;
     flex-direction: column;
+    gap: 6px;
 }
 
 .btn-register {
     width: 100%;
-    padding: 18px;
+    padding: 14px;
     background-color: #6B3A8B;
     color: #ffffff;
     border: none;
-    border-radius: 14px;
-    font-size: 1.1rem;
-    font-weight: 600;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 15px;
-    transition: all 0.3s ease;
+    margin-top: auto;
+    transition: background-color 0.2s, box-shadow 0.2s;
 }
 
 .btn-register:hover {
-    background-color: #8e44ad;
-    box-shadow: 0 5px 15px rgba(107, 58, 139, 0.4);
+    background-color: #552b78;
+    box-shadow: 0 4px 12px rgba(107, 58, 139, 0.2);
+}
+
+@media (max-width: 480px) {
+    .register-container {
+        max-width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 10px 0;
+        gap: 10px;
+    }
+
+    .top-bar {
+        min-height: 90px;
+        padding: 20px 16px 5px 16px;
+    }
+
+    .map-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0;
+        width: 100%;
+        height: 220px;
+    }
+
+    .leaflet-container {
+        height: 220px !important;
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid #E2E8F0;
+    }
+
+    .event-rules-box {
+        margin: 0;
+        padding: 12px 14px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .btn-register {
+        padding: 16px;
+        font-size: 1rem;
+        margin-top: 10px;
+    }
 }
