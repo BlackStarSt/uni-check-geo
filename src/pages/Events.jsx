@@ -106,7 +106,7 @@ function Events() {
     return (
         <div className="events-container">
             <VoltarButton />
-            <div className="header-container">
+            <div className="events-header-container">
                 <h2 className="events-title">Todos os Eventos</h2>
                 {isAdmin && (
                     <button

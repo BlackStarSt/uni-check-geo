@@ -55,7 +55,7 @@ function HeaderItem({ logo, user, userPhoto, perfil }) {
                         className="user-profile"
                     />
                     {menuOpen && (
-                        <div className="dropdown-menu">
+                        <div className="profile-dropdown-menu">
                             <Link
                                 to={`/profile/${currentUser?.uid}`}
                                 className="menu-item"
