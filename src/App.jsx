@@ -13,6 +13,9 @@ import EventRegister from './pages/EventRegister';
 import Ranking from './pages/Ranking';
 import EditEvent from './pages/EditEvent';
 import NewEvent from './pages/NewEvent';
+import Users from './pages/Users';
+import NewUser from './pages/NewUser';
+import EditUser from './pages/EditUser';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -71,6 +74,18 @@ function App() {
         <Route
           path="/new-event/"
           element={user ? <NewEvent/> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/users/"
+          element={user ? <Users/> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/new-user/"
+          element={user ? <NewUser/> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/edit-user/:id"
+          element={user ? <EditUser/> : <Navigate to="/" replace />}
         />
         <Route
           path="/ranking/"
