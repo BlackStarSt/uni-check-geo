@@ -1,9 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { FiMoreVertical, FiEdit3, FiTrash2 } from 'react-icons/fi'; // Ícones para o menu
 import '../styles/Home.css';
 
-function EventoItem({ image, eventName, local, dateTime }) {
+function EventoItem({ image, eventName, local, dateTime, isAdmin, onEdit, onDelete }) {
     const [tempoRestante, setTempoRestante] = useState("00:00");
     const [statusLabel, setStatusLabel] = useState("Carregando...");
+    const [menuAberto, setMenuAberto] = useState(false);
+    const menuRef = useRef(null);
+
+    useEffect(() => {
+        function fecharMenuFora(event) {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuAberto(false);
+            }
+        }
+        document.addEventListener("mousedown", fecharMenuFora);
+        return () => document.removeEventListener("mousedown", fecharMenuFora);
+    }, []);
 
     useEffect(() => {
         if (!dateTime || typeof dateTime === 'string') {
@@ -15,7 +28,7 @@ function EventoItem({ image, eventName, local, dateTime }) {
         const calcularTudo = () => {
             try {
                 const agora = new Date().getTime();
-                
+
                 const inicio = dateTime.toDate ? dateTime.toDate().getTime() : new Date(dateTime).getTime();
                 const limite = inicio + (15 * 60 * 1000);
 
@@ -57,11 +70,11 @@ function EventoItem({ image, eventName, local, dateTime }) {
     const formatarData = (data) => {
         if (!data || typeof data === 'string') return "Horário a definir";
         const d = data.toDate ? data.toDate() : new Date(data);
-        return d.toLocaleDateString('pt-BR', { 
-            day: '2-digit', 
-            month: 'long', 
-            hour: '2-digit', 
-            minute: '2-digit' 
+        return d.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: 'long',
+            hour: '2-digit',
+            minute: '2-digit'
         });
     };
 
@@ -83,6 +96,30 @@ function EventoItem({ image, eventName, local, dateTime }) {
                 </p>
                 <p className="item-status">{tempoRestante}</p>
             </div>
+            {isAdmin && (
+                <div className="admin-menu-container absolute-top-right" ref={menuRef}>
+                    <button
+                        className="btn-dots"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setMenuAberto(!menuAberto);
+                        }}
+                    >
+                        <FiMoreVertical size={20} />
+                    </button>
+
+                    {menuAberto && (
+                        <div className="dropdown-menu">
+                            <button onClick={(e) => { e.stopPropagation(); onEdit(); }} className="dropdown-item">
+                                <FiEdit3 size={14} /> Editar
+                            </button>
+                            <button onClick={(e) => { e.stopPropagation(); onDelete(e); }} className="dropdown-item delete">
+                                <FiTrash2 size={14} /> Deletar
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }
