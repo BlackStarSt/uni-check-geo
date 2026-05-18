@@ -2,7 +2,7 @@ import '../styles/EditEvent.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../services/firebaseConfig';
-import { doc, getDoc, updateDoc, GeoPoint    } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, GeoPoint } from 'firebase/firestore';
 
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
@@ -122,17 +122,22 @@ function EditEvent() {
     if (loading) {
         return (
             <div className="loading-container">
-                <p className="loading-text">Carregando dados do evento...</p>
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Buscando...</p>
             </div>
         );
     }
 
     return (
         <div className="edit-event-container">
-            <VoltarButton />
-
-            <div className="header-container">
-                <h2 className="events-title">Editar Evento</h2>
+            <div className="edit-event-header-container">
+                <div className="edit-event-header-left">
+                    <VoltarButton />
+                    <h2>Editar Evento</h2>
+                </div>
             </div>
 
             <form onSubmit={handleSalvarAlteracoes} className="edit-event-form">

@@ -63,12 +63,12 @@ function NewEvent() {
 
     return (
         <div className="edit-event-container">
-            <VoltarButton />
-            
-            <div className="header-container">
-                <h2 className="events-title">Criar Novo Evento</h2>
+            <div className="edit-event-header-container">
+                <div className="edit-event-header-left">
+                    <VoltarButton />
+                    <h2>Criar Novo Evento</h2>
+                </div>
             </div>
-
             <form onSubmit={handleCriarEvento} className="edit-event-form">
                 <div className="form-group">
                     <label>Nome do Evento</label>
@@ -137,7 +137,7 @@ function NewEvent() {
                 </div>
 
                 <button type="submit" className="btn-save-event" disabled={saving}>
-                    {saving ? "Cadastrando Evento..." : "+ Cadastrar Evento"}
+                    {saving ? "Cadastrando Evento..." : "Cadastrar Evento"}
                 </button>
             </form>
         </div>
