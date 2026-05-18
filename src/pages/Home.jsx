@@ -17,6 +17,7 @@ function Home() {
 
     const [user, setUser] = useState(null);
     const [userPhoto, setUserPhoto] = useState(null);
+    const [perfil, setPerfil] = useState('');
 
     const [allEventos, setAllEventos] = useState([]);
     const [allDestaques, setAllDestaques] = useState([]);
@@ -37,13 +38,17 @@ function Home() {
                     const dados = docSnap.data();
                     setUser(dados.user || usuarioLogado.displayName);
                     setUserPhoto(dados.userPhoto || usuarioLogado.photoURL);
+                    setPerfil(dados.perfil || 'aluno');
+
                 } else {
                     setUser(usuarioLogado.displayName || "Usuário");
                     setUserPhoto(usuarioLogado.photoURL);
+                    setPerfil('aluno');
                 }
             } else {
                 setUser("Visitante");
                 setUserPhoto(null);
+                setPerfil(null);
             }
         });
         return () => unsubscribe();
@@ -140,6 +145,7 @@ function Home() {
                     logo={Logo}
                     user={user}
                     userPhoto={userPhoto}
+                    perfil={perfil}
                 />
             </div>
             <input type="text" className="home-input" placeholder='Buscar' />

@@ -64,6 +64,13 @@ function HeaderItem({ logo, user, userPhoto }) {
                                 Perfil
                             </Link>
                             <Link
+                                to={`/users`}
+                                className="menu-item"
+                                onClick={() => setMenuOpen(false)}
+                            >
+                                Usuários
+                            </Link>
+                            <Link
                                 to={`/ranking`}
                                 className="menu-item"
                                 onClick={() => setMenuOpen(false)}
