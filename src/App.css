@@ -27,3 +27,34 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
+
+.btn-voltar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    justify-content: flex-start;
+    cursor: pointer;
+    padding: 6px 0;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4B5563;
+    transition: color 0.2s ease;
+}
+
+.btn-voltar-container:hover {
+    color: #6B3A8B;
+}
+
+.icon-voltar {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    transition: transform 0.2s ease;
+}
+
+.btn-voltar-container:hover .icon-voltar {
+    transform: translateX(-4px);
+}
