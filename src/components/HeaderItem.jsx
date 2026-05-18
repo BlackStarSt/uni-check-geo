@@ -4,7 +4,7 @@ import { getAuth, signOut } from 'firebase/auth';
 
 import '../styles/Home.css';
 
-function HeaderItem({ logo, user, userPhoto }) {
+function HeaderItem({ logo, user, userPhoto, perfil }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const navigate = useNavigate();
@@ -63,6 +63,15 @@ function HeaderItem({ logo, user, userPhoto }) {
                             >
                                 Perfil
                             </Link>
+                            {(perfil === 'admin' || perfil === 'coordenador') && (
+                                <Link
+                                    to={`/users`}
+                                    className="menu-item"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Usuários
+                                </Link>
+                            )}
                             <Link
                                 to={`/ranking`}
                                 className="menu-item"
