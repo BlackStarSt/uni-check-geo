@@ -12,6 +12,7 @@
     border: 1px solid #C4C4C4;
     border-radius: 10px;
     padding: 5px 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .select-container {
@@ -19,13 +20,32 @@
 }
 
 .select-custom {
-    width: 70%;
+        width: 70%;
     height: 70%;
     border: 1px solid #000000;
     border-radius: 8px;
     font-size: 16px;
     padding: 0 5px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    padding-right: 30px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23622584' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    background-size: 16px;
 }
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-custom option {
+    font-family: inherit;
+    font-size: 15px;
+}
+
 
 .select-custom:focus, .select-custom:hover {
     outline: none;
@@ -62,4 +82,40 @@
 .login-link > p {
     text-decoration: 1px solid #622584;
     font-weight: 500;
+}
+
+.password-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    border-radius: 50%;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.password-toggle-btn:hover {
+    background-color: rgba(98, 37, 132, 0.05);
+    transform: scale(1.05);
+}
+
+.password-toggle-btn svg {
+    display: block;
+    transition: stroke 0.2s ease, transform 0.2s ease;
+}
+
+.password-toggle-btn:hover svg {
+    stroke: #622584; 
+}
+
+.password-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.password-toggle-btn:focus-visible {
+    outline: 2px solid #622584;
+    background-color: rgba(98, 37, 132, 0.1);
 }

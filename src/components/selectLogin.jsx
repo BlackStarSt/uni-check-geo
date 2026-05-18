@@ -2,10 +2,10 @@ import '../styles/InputLogin.css';
 
 function SelectLogin({ label, icon, options, value, onChange, name, id }) {
     return (
-        <div className="select-container">
+        <div className={`select-container select-wrapper perfil-${value}`}>
             {icon && <img src={icon} alt="" className="select-icon-prefix" />}
 
-            {label && <label htmlFor={id} className="perfil-label">{label}</label>}
+            {label && <label htmlFor={id} className="perfil-label" style={{ marginRight: '10px', fontSize: '15px' }}>{label}:</label>}
 
             <select
                 name={name}
