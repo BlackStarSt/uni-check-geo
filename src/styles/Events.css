@@ -17,6 +17,28 @@
     align-items: center;
 }
 
+.btn-create-event {
+    background-color: #6A3893;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(106, 56, 147, 0.15);
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+}
+
+.btn-create-event:hover {
+    background-color: #552b78;
+}
+
+.btn-create-event:active {
+    transform: scale(0.98);
+}
+
 .events-list-page .evento-itens {
     width: 450px;
 }
@@ -33,4 +55,92 @@
 
 .events-list-page::-webkit-scrollbar {
     display: none;
+}
+
+.evento-itens {
+    position: relative !important;
+    padding-right: 40px;
+    overflow: visible !important;
+}
+
+.admin-menu-container {
+    position: absolute !important;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+}
+
+.btn-dots {
+    background: none !important;
+    border: none !important;
+    color: #A0AEC0;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    box-shadow: none !important;
+}
+
+.btn-dots:hover {
+    background-color: rgba(106, 56, 147, 0.1) !important;
+    color: #6A3893;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    border: 1px solid #f0f0f0;
+    z-index: 999;
+    width: 120px;
+    overflow: hidden;
+    animation: fadeIn 0.15s ease-out;
+}
+
+.dropdown-item {
+    background: none !important;
+    border: none !important;
+    width: 100%;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: bold;
+    color: #4B5563;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f3f0ff !important;
+    color: #6A3893;
+}
+
+.dropdown-item.delete {
+    color: #e53e3e;
+    border-top: 1px solid #f7f7f7;
+}
+
+.dropdown-item.delete:hover {
+    background-color: #fff5f5 !important;
+    color: #e53e3e;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

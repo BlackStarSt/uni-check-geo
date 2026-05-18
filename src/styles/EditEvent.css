@@ -1,0 +1,118 @@
+.edit-event-container {
+   height: 90vh;
+    min-height: 85vh;
+    width: 100vw;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow-y: visible;
+}
+
+.edit-event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+    overflow-y: auto;
+    padding-right: 5px;
+    width: 82%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #4B5563;
+    text-align: left;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: #F8FAFC;
+    color: #333333;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #6A3893;
+    background-color: #ffffff;
+}
+
+.leaflet-wrapper {
+    height: 180px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 6px;
+    border: 1px solid #E2E8F0;
+    z-index: 1;
+}
+
+.leaflet-container {
+    cursor: crosshair !important;
+}
+
+.leaflet-marker-icon {
+    cursor: pointer !important;
+}
+
+.image-preview-box {
+    margin-top: 6px;
+    text-align: left;
+}
+
+.image-preview-box p {
+    font-size: 11px;
+    color: #64748B;
+    margin: 0 0 4px 0;
+}
+
+.img-preview {
+    width: 100%;
+    max-height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #E2E8F0;
+}
+
+.map-help-text {
+    font-size: 11px;
+    color: #64748B;
+    margin: 0;
+    text-align: left;
+}
+
+.coords-indicator {
+    display: block;
+    font-size: 11px;
+    font-family: monospace;
+    background-color: #F1F5F9;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-top: 6px;
+    color: #475569;
+    text-align: center;
+}
+
+.btn-save-event {
+    background-color: #6A3893;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
