@@ -126,7 +126,7 @@ function EditEvent() {
                     <div className="dot"></div>
                     <div className="outline"></div>
                 </div>
-                <p className="loading-text">Buscando...</p>
+                <p className="loading-text">Carregando...</p>
             </div>
         );
     }

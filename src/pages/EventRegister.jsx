@@ -90,8 +90,10 @@ function EventRegister() {
     if (loading) {
         return (
             <div className="loading-container">
-                <div className="loader-visual"><div className="dot"></div>
-                    <div className="outline"></div></div>
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
                 <p className="loading-text">Carregando...</p>
             </div>
         );

@@ -30,73 +30,13 @@ function Ranking() {
                     contagemPorUsuario[userId] = (contagemPorUsuario[userId] || 0) + 1;
                 });
 
-                const rankingReal = usuarios.map(u => ({
+                const rankingFinal = usuarios.map(u => ({
                     id: u.id,
                     nome: u.user,
                     curso: u.curso || "Geral",
                     foto: u.userPhoto || u.user?.substring(0, 2).toUpperCase(),
                     total: contagemPorUsuario[u.id] || 0
                 }))
-                    .sort((a, b) => b.total - a.total);
-
-                const alunosFakes = [
-                    {
-                        id: "fake_user_1",
-                        nome: "Ana Beatriz Ramos",
-                        curso: "Engenharia de Computação",
-                        userPhoto: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
-                        total: 18 // Vai brigar pelo topo do pódio
-                    },
-                    {
-                        id: "fake_user_2",
-                        nome: "Carlos Eduardo Santos",
-                        curso: "Ciência da Computação",
-                        userPhoto: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
-                        total: 15
-                    },
-                    {
-                        id: "fake_user_3",
-                        nome: "Mariana Costa",
-                        curso: "Sistemas de Informação",
-                        userPhoto: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
-                        total: 12
-                    },
-                    {
-                        id: "fake_user_4",
-                        nome: "Lucas Oliveira",
-                        curso: "Análise e Des. de Sistemas",
-                        userPhoto: null, // Testar o fallback de iniciais do nome
-                        total: 9
-                    },
-                    {
-                        id: "fake_user_5",
-                        nome: "Gabriela Lima",
-                        curso: "Engenharia de Software",
-                        userPhoto: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
-                        total: 7
-                    },
-                    {
-                        id: "fake_user_6",
-                        nome: "Thiago Rocha",
-                        curso: "Redes de Computadores",
-                        userPhoto: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
-                        total: 5
-                    },
-                    {
-                        id: "fake_user_7",
-                        nome: "Larissa Rezende",
-                        curso: "Ciência da Computação",
-                        userPhoto: null,
-                        total: 2
-                    }
-                ];
-
-                const rankingFinal = [...rankingReal, ...alunosFakes]
-                    .map(aluno => ({
-                        ...aluno,
-                        // Mantém a lógica de fallback caso o componente espere a propriedade 'foto'
-                        foto: aluno.userPhoto || aluno.nome?.substring(0, 2).toUpperCase()
-                    }))
                     .sort((a, b) => b.total - a.total);
 
                 setRanking(rankingFinal);
