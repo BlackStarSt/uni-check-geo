@@ -114,7 +114,38 @@ function Profile() {
                 }));
 
                 const listaOrdenada = docs.sort((a, b) => b.checkInDate - a.checkInDate);
-                setHistorico(listaOrdenada);
+
+                const itensFakes = [
+                    {
+                        id: "fake_1",
+                        eventName: "Workshop de Geoprocessamento e Spark",
+                        status: "realizado",
+                        checkInDate: { toDate: () => new Date() } // Simula o Timestamp do Firebase
+                    },
+                    {
+                        id: "fake_2",
+                        eventName: "Palestra de Inteligência Artificial Avançada",
+                        status: "inscrito",
+                        eventDate: { toDate: () => new Date(Date.now() + 50000000) } // No futuro (Em espera)
+                    },
+                    {
+                        id: "fake_3",
+                        eventName: "Hackathon UniCheck 2026",
+                        status: "inscrito",
+                        eventDate: { toDate: () => new Date(Date.now() - 50000000) } // No passado (Expirado)
+                    },
+                    {
+                        id: "fake_4",
+                        eventName: "Mini-curso de UX/UI para Mobile",
+                        status: "realizado",
+                        checkInDate: { toDate: () => new Date(Date.now() - 86400000) }
+                    }
+                ];
+
+                // Junta o que veio do banco real com os fakes para esticar a lista
+                setHistorico([...listaOrdenada, ...itensFakes]);
+
+                // setHistorico(listaOrdenada);
 
             } catch (error) {
                 console.error("Erro ao buscar histórico:", error);
@@ -140,7 +171,11 @@ function Profile() {
 
     return (
         <div className="container-profile">
-            <VoltarButton />
+            <div className="profile-header-container">
+                <div className="profile-header-left">
+                    <VoltarButton />
+                </div>
+            </div>
             <div className="profile-card">
                 <div className="profile-header">
                     <div className="avatar-container" onClick={abrirSeletorSArquivos}>
