@@ -1,4 +1,4 @@
-import '../styles/EditEvent.css';
+import '../styles/EditEventAndUser.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../services/firebaseConfig';
@@ -141,10 +141,11 @@ function EditEvent() {
 
     return (
         <div className="edit-event-container">
-            <VoltarButton />
-
-            <div className="header-container">
-                <h2 className="events-title">Editar Evento</h2>
+            <div className="edit-event-header-container">
+                <div className="edit-event-header-left">
+                    <VoltarButton />
+                    <h2>Editar Evento</h2>
+                </div>
             </div>
 
             <form onSubmit={handleSalvarAlteracoes} className="edit-event-form">

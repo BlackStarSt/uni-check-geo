@@ -204,12 +204,12 @@ function CheckIn() {
 
     return (
         <div className='checkIn-container'>
-            <VoltarButton />
-
-            <div className="header-container">
-                <h2 className="checkIn-title">Detalhes do Check-In</h2>
+            <div className="edit-event-header-container">
+                <div className="edit-event-header-left">
+                    <VoltarButton />
+                    <h2 className="checkIn-title">Detalhes do Check-In</h2>
+                </div>
             </div>
-
             <div className="checkIn">
                 <div className="timer-container">
                     <div className="timer">
@@ -251,9 +251,7 @@ function CheckIn() {
                         </MapContainer>
                     </div>
                     <p className={`map-status status-${radiusStatus}`}>
-                        Localização {locationStatus}
-                        {distanciaReal !== null}
-                        ({radiusStatus === 'dentro' ? 'Dentro' : 'Fora'} do raio)
+                        Localização {locationStatus} ({radiusStatus === 'dentro' ? 'Dentro' : 'Fora'} do raio)
                     </p>
                 </div>
                 <div className="button-container">

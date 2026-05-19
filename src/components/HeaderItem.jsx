@@ -4,7 +4,7 @@ import { getAuth, signOut } from 'firebase/auth';
 
 import '../styles/Home.css';
 
-function HeaderItem({ logo, user, userPhoto }) {
+function HeaderItem({ logo, user, userPhoto, perfil }) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const navigate = useNavigate();
@@ -31,6 +31,11 @@ function HeaderItem({ logo, user, userPhoto }) {
         return typeof name === 'string' ? name.split(' ')[0] : "Usuário";
     };
 
+    const getInitials = (name) => {
+        if (!name || typeof name !== 'string') return "US";
+        return name.substring(0, 2).toUpperCase();
+    };
+
     return (
         <>
             {isLoggingOut && (
@@ -42,20 +47,29 @@ function HeaderItem({ logo, user, userPhoto }) {
                     <p className="loading-text">Encerrando sessão...</p>
                 </div>
             )}
-            
+
             <div className="header-itens">
                 <div className="user-detail">
                     <img src={logo} alt="Logo do App" className="logo" />
                     <h2 className="user-name">Olá, {formatName(user)}</h2>
                 </div>
                 <div className="profile-container" onClick={() => setMenuOpen(!menuOpen)}>
-                    <img
-                        src={userPhoto}
-                        alt="Perfil"
-                        className="user-profile"
-                    />
+                    {userPhoto ? (
+                        <img
+                            src={userPhoto}
+                            alt="Perfil"
+                            className="user-profile"
+                            onError={(e) => {
+                                e.target.style.display = 'none';
+                            }}
+                        />
+                    ) : (
+                        <div className="user-profile-fallback">
+                            {getInitials(user)}
+                        </div>
+                    )}
                     {menuOpen && (
-                        <div className="dropdown-menu">
+                        <div className="profile-dropdown-menu">
                             <Link
                                 to={`/profile/${currentUser?.uid}`}
                                 className="menu-item"
@@ -63,6 +77,15 @@ function HeaderItem({ logo, user, userPhoto }) {
                             >
                                 Perfil
                             </Link>
+                            {(perfil === 'admin' || perfil === 'coordenador') && (
+                                <Link
+                                    to={`/users`}
+                                    className="menu-item"
+                                    onClick={() => setMenuOpen(false)}
+                                >
+                                    Usuários
+                                </Link>
+                            )}
                             <Link
                                 to={`/ranking`}
                                 className="menu-item"

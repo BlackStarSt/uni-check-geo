@@ -53,7 +53,10 @@ function Ranking() {
     if (loading) {
         return (
             <div className="loading-container">
-                <div className="loader-visual"><div className="dot"></div><div className="outline"></div></div>
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
                 <p className="loading-text">Carregando...</p>
             </div>
         );
@@ -62,7 +65,9 @@ function Ranking() {
     return (
         <div className="ranking-container">
             <header className="ranking-header">
-                <VoltarButton />
+                <div className="ranking-top-bar">
+                    <VoltarButton />
+                </div>
                 <h1 className="ranking-title">Ranking de Presença</h1>
                 <p className="ranking-subtitle">Alunos mais engajados do semestre</p>
                 <div className="filter-tabs">

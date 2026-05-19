@@ -6,17 +6,17 @@
     box-sizing: border-box;
 }
 
-html, body {
+html, body, #root {
     width: 100%;
-    height: 100%;
-    overflow-x: hidden;
+    min-height: 100vh; 
+    min-height: 100dvh;
+    font-family: "Roboto Condensed", sans-serif;
 }
 
 body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Roboto Condensed", sans-serif;
 }
 
 #root {
@@ -26,5 +26,35 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    height: 95vh;
+}
+
+.btn-voltar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    justify-content: flex-start;
+    cursor: pointer;
+    padding: 6px 0;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4B5563;
+    transition: color 0.2s ease;
+}
+
+.btn-voltar-container:hover {
+    color: #6B3A8B;
+}
+
+.icon-voltar {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    transition: transform 0.2s ease;
+}
+
+.btn-voltar-container:hover .icon-voltar {
+    transform: translateX(-4px);
 }

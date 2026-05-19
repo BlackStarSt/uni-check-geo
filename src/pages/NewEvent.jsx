@@ -1,4 +1,4 @@
-import '../styles/EditEvent.css';
+import '../styles/EditEventAndUser.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../services/firebaseConfig';
@@ -18,6 +18,7 @@ L.Icon.Default.mergeOptions({
 
 function NewEvent() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [eventName, setEventName] = useState('');
@@ -93,7 +94,6 @@ function NewEvent() {
             <div className="header-container">
                 <h2 className="events-title">Criar Novo Evento</h2>
             </div>
-
             <form onSubmit={handleCriarEvento} className="edit-event-form">
                 <div className="form-group">
                     <label>Nome do Evento</label>
@@ -163,7 +163,7 @@ function NewEvent() {
                 </div>
 
                 <button type="submit" className="btn-save-event" disabled={saving}>
-                    {saving ? "Cadastrando Evento..." : "+ Cadastrar Evento"}
+                    {saving ? "Cadastrando Evento..." : "Cadastrar Evento"}
                 </button>
             </form>
         </div>

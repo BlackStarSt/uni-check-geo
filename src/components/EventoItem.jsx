@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { FiMoreVertical, FiEdit3, FiTrash2 } from 'react-icons/fi'; // Ícones para o menu
+import { FiMoreVertical, FiEdit3, FiTrash2 } from 'react-icons/fi';
 import '../styles/Home.css';
 
 function EventoItem({ image, eventName, local, dateTime, isAdmin, onEdit, onDelete }) {
@@ -109,7 +109,7 @@ function EventoItem({ image, eventName, local, dateTime, isAdmin, onEdit, onDele
                     </button>
 
                     {menuAberto && (
-                        <div className="dropdown-menu">
+                        <div className="admin-dropdown-menu">
                             <button onClick={(e) => { e.stopPropagation(); onEdit(); }} className="dropdown-item">
                                 <FiEdit3 size={14} /> Editar
                             </button>

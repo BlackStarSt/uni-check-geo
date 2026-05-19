@@ -105,8 +105,10 @@ function EventRegister() {
     if (loading) {
         return (
             <div className="loading-container">
-                <div className="loader-visual"><div className="dot"></div>
-                    <div className="outline"></div></div>
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
                 <p className="loading-text">Carregando...</p>
             </div>
         );
@@ -118,11 +120,14 @@ function EventRegister() {
 
     return (
         <div className="register-container">
-            <div className="top-bar"> <VoltarButton /> </div>
+            <div className="top-bar">
+                <div className="edit-event-header-left">
+                    <VoltarButton />
+                    <h2 className="register-title">Inscrição em: <br /> {evento.eventName}</h2>
+                </div>
+            </div>
 
             <div className="event-register">
-                <h2 className="register-title">Inscrição em: <br /> {evento.eventName}</h2>
-
                 <div className="event-details-box">
                     <p><strong>Local:</strong> {evento.local}</p>
                     <p><strong>Data:</strong> {evento.dateTime?.toDate().toLocaleDateString('pt-BR')}</p>
@@ -153,12 +158,17 @@ function EventRegister() {
                     )}
                 </div>
 
-                <button
-                    className="btn-register"
-                    onClick={handleInscricao}
-                    disabled={eventoEncerrado}
-                >
-                    {eventoEncerrado ? "Evento Encerrado" : "Confirmar Participação"}
+                <div className="event-rules-box">
+                    <h4 className="rules-title">Informações Importantes</h4>
+                    <ul className="rules-list">
+                        <li>Abertura do check-in 15 minutos antes do horário de início.</li>
+                        <li>A presença gera certificado automático computado em horas complementares.</li>
+                        <li>Caso não possa comparecer, cancele sua inscrição para liberar a vaga.</li>
+                    </ul>
+                </div>
+
+                <button className="btn-register" onClick={handleInscricao}>
+                    Confirmar Participação
                 </button>
             </div>
         </div>

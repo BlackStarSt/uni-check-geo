@@ -140,7 +140,11 @@ function Profile() {
 
     return (
         <div className="container-profile">
-            <VoltarButton />
+            <div className="profile-header-container">
+                <div className="profile-header-left">
+                    <VoltarButton />
+                </div>
+            </div>
             <div className="profile-card">
                 <div className="profile-header">
                     <div className="avatar-container" onClick={abrirSeletorSArquivos}>
