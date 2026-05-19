@@ -20,12 +20,16 @@ function NewEvent() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
+    const [loading, setLoading] = useState(false);
     const [eventName, setEventName] = useState('');
     const [localNome, setLocalNome] = useState('');
     const [posicao, setPosicao] = useState([-20.3155, -40.3128]);
     const [dateTime, setDateTime] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [saving, setSaving] = useState(false);
+
+    const dataMinima = new Date().toISOString().slice(0, 16);
+
 
     function CliqueNoMapa() {
         const map = useMapEvents({
@@ -40,6 +44,15 @@ function NewEvent() {
 
     const handleCriarEvento = async (e) => {
         e.preventDefault();
+
+        const dataSelecionada = new Date(dateTime);
+        const agora = new Date();
+
+        if (dataSelecionada < agora) {
+            alert("Não é possível cadastrar um evento com data e hora que já passaram!");
+            return;
+        }
+
         setSaving(true);
 
         try {
@@ -76,11 +89,10 @@ function NewEvent() {
 
     return (
         <div className="edit-event-container">
-            <div className="edit-event-header-container">
-                <div className="edit-event-header-left">
-                    <VoltarButton />
-                    <h2>Criar Novo Evento</h2>
-                </div>
+            <VoltarButton />
+
+            <div className="header-container">
+                <h2 className="events-title">Criar Novo Evento</h2>
             </div>
             <form onSubmit={handleCriarEvento} className="edit-event-form">
                 <div className="form-group">
@@ -145,6 +157,7 @@ function NewEvent() {
                         type="datetime-local"
                         value={dateTime}
                         onChange={(e) => setDateTime(e.target.value)}
+                        min={dataMinima}
                         required
                     />
                 </div>

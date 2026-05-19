@@ -97,6 +97,14 @@ function EditEvent() {
         e.preventDefault();
         setSaving(true);
 
+        const dataEvento = new Date(dateTime);
+        const agora = new Date();
+
+        if (dataEvento < agora) {
+            alert("A data do evento não pode ser inferior ao momento atual!");
+            return;
+        }
+        
         try {
             const docRef = doc(db, 'eventos', id);
 
