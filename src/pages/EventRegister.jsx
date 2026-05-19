@@ -167,8 +167,12 @@ function EventRegister() {
                     </ul>
                 </div>
 
-                <button className="btn-register" onClick={handleInscricao}>
-                    Confirmar Participação
+                <button 
+                    className="btn-register" 
+                    onClick={handleInscricao}
+                    disabled={eventoEncerrado}
+                >
+                    {eventoEncerrado ? "Evento Encerrado" : "Confirmar Participação"}
                 </button>
             </div>
         </div>

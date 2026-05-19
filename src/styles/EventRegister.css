@@ -151,6 +151,25 @@
     box-shadow: 0 4px 12px rgba(107, 58, 139, 0.2);
 }
 
+.event-expired-badge {
+    background-color: #FEE2E2;
+    color: #B91C1C;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border: 1px solid #FCA5A5;
+    text-align: center;
+}
+
+.btn-register:disabled {
+    background-color: #94A3B8 !important;
+    color: #ffffff !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
 @media (max-width: 480px) {
     .register-container {
         max-width: 100%;
