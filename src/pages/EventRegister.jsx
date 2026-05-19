@@ -29,6 +29,7 @@ function EventRegister() {
 
     const [evento, setEvento] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [eventoEncerrado, setEventoEncerrado] = useState(false);
 
     useEffect(() => {
         const buscarEvento = async () => {
@@ -37,7 +38,16 @@ function EventRegister() {
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    setEvento(docSnap.data());
+                    const dadosDoFirebase = docSnap.data();
+                    setEvento(dadosDoFirebase);
+
+                    if (dadosDoFirebase.dateTime) {
+                        const dataDoEvento = dadosDoFirebase.dateTime.toDate();
+                        const agora = new Date();
+                        if (dataDoEvento < agora) {
+                            setEventoEncerrado(true);
+                        }
+                    }
                 } else {
                     navigate('/home');
                 }
@@ -53,6 +63,11 @@ function EventRegister() {
     const handleInscricao = async () => {
         const userId = auth.currentUser?.uid;
         if (!userId) return;
+
+        if (eventoEncerrado) {
+            alert("Não é possível se inscrever em um evento que já aconteceu.");
+            return;
+        }
 
         const presencaId = `${userId}_${id}`;
         const presencaRef = doc(db, "presencas", presencaId);
@@ -138,8 +153,12 @@ function EventRegister() {
                     )}
                 </div>
 
-                <button className="btn-register" onClick={handleInscricao}>
-                    Confirmar Participação
+                <button
+                    className="btn-register"
+                    onClick={handleInscricao}
+                    disabled={eventoEncerrado}
+                >
+                    {eventoEncerrado ? "Evento Encerrado" : "Confirmar Participação"}
                 </button>
             </div>
         </div>
