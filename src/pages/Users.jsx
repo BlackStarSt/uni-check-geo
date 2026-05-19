@@ -112,16 +112,19 @@ function Users() {
 
     return (
         <div className="user-list-container">
-            <VoltarButton />
-
-            <div className="header-container">
-                <h2 className="events-title">Controle de Usuários</h2>
-                <button
-                    className="btn-create-event"
-                    onClick={() => navigate('/new-user')}
-                >
-                    + Adicionar Usuário
-                </button>
+            <div className="users-page-header">
+                <div className="users-page-top-bar">
+                    <VoltarButton />
+                </div>
+                <div className="users-page-title-box">
+                    <h2 className="events-title">Controle de Usuários</h2>
+                    <button
+                        className="btn-create-event"
+                        onClick={() => navigate('/new-user')}
+                    >
+                        + Adicionar Usuário
+                    </button>
+                </div>
             </div>
 
             <div className="user-count-bar">

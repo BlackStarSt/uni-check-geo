@@ -1,4 +1,4 @@
-import '../styles/EditEvent.css';
+import '../styles/EditEventAndUser.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../services/firebaseConfig';
@@ -119,7 +119,7 @@ function EditUser() {
                     <div className="dot"></div>
                     <div className="outline"></div>
                 </div>
-                <p className="loading-text">Buscando dados do usuário...</p>
+                <p className="loading-text">Carregando...</p>
             </div>
         );
     }
@@ -128,8 +128,12 @@ function EditUser() {
 
     return (
         <div className="edit-event-container">
-            <VoltarButton />
-            <h2 className="events-title">Editar Usuário</h2>
+            <div className="edit-event-header-container">
+                <div className="edit-event-header-left">
+                    <VoltarButton />
+                    <h2>Editar Usuário</h2>
+                </div>
+            </div>
 
             <form onSubmit={handleSalvarEdicao} className="edit-event-form">
                 <p style={{ fontSize: '13px', color: '#64748B', marginBottom: '20px', textAlign: 'center' }}>

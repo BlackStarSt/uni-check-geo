@@ -1,3 +1,4 @@
+import '../styles/EditEventAndUser.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../services/firebaseConfig';
@@ -69,8 +70,12 @@ function NewUser() {
 
     return (
         <div className="edit-event-container">
-            <VoltarButton />
-            <h2 className="events-title">Criar Conta</h2>
+            <div className="edit-event-header-container">
+                <div className="edit-event-header-left">
+                    <VoltarButton />
+                    <h2>Criar Conta</h2>
+                </div>
+            </div>
 
             <form onSubmit={handleCadastro} className="edit-event-form">
                 <div className="form-group">

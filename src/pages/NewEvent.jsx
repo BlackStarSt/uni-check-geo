@@ -1,4 +1,4 @@
-import '../styles/EditEvent.css';
+import '../styles/EditEventAndUser.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../services/firebaseConfig'; 
