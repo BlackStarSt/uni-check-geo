@@ -41,7 +41,6 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: 20px;
 }
 
