@@ -31,6 +31,11 @@ function HeaderItem({ logo, user, userPhoto, perfil }) {
         return typeof name === 'string' ? name.split(' ')[0] : "Usuário";
     };
 
+    const getInitials = (name) => {
+        if (!name || typeof name !== 'string') return "US";
+        return name.substring(0, 2).toUpperCase();
+    };
+
     return (
         <>
             {isLoggingOut && (
@@ -42,18 +47,27 @@ function HeaderItem({ logo, user, userPhoto, perfil }) {
                     <p className="loading-text">Encerrando sessão...</p>
                 </div>
             )}
-            
+
             <div className="header-itens">
                 <div className="user-detail">
                     <img src={logo} alt="Logo do App" className="logo" />
                     <h2 className="user-name">Olá, {formatName(user)}</h2>
                 </div>
                 <div className="profile-container" onClick={() => setMenuOpen(!menuOpen)}>
-                    <img
-                        src={userPhoto}
-                        alt="Perfil"
-                        className="user-profile"
-                    />
+                    {userPhoto ? (
+                        <img
+                            src={userPhoto}
+                            alt="Perfil"
+                            className="user-profile"
+                            onError={(e) => {
+                                e.target.style.display = 'none';
+                            }}
+                        />
+                    ) : (
+                        <div className="user-profile-fallback">
+                            {getInitials(user)}
+                        </div>
+                    )}
                     {menuOpen && (
                         <div className="profile-dropdown-menu">
                             <Link
