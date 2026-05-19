@@ -2,7 +2,7 @@ import '../styles/EditEvent.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../services/firebaseConfig';
-import { doc, getDoc, updateDoc, GeoPoint    } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, GeoPoint } from 'firebase/firestore';
 
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
@@ -97,6 +97,14 @@ function EditEvent() {
         e.preventDefault();
         setSaving(true);
 
+        const dataEvento = new Date(dateTime);
+        const agora = new Date();
+
+        if (dataEvento < agora) {
+            alert("A data do evento não pode ser inferior ao momento atual!");
+            return;
+        }
+        
         try {
             const docRef = doc(db, 'eventos', id);
 
@@ -122,7 +130,11 @@ function EditEvent() {
     if (loading) {
         return (
             <div className="loading-container">
-                <p className="loading-text">Carregando dados do evento...</p>
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Carregando...</p>
             </div>
         );
     }

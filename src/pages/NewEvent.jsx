@@ -1,7 +1,7 @@
 import '../styles/EditEvent.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../services/firebaseConfig'; 
+import { db } from '../services/firebaseConfig';
 import { collection, addDoc, GeoPoint } from 'firebase/firestore';
 
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
@@ -19,19 +19,23 @@ L.Icon.Default.mergeOptions({
 function NewEvent() {
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState(false);
     const [eventName, setEventName] = useState('');
-    const [localNome, setLocalNome] = useState(''); 
+    const [localNome, setLocalNome] = useState('');
     const [posicao, setPosicao] = useState([-20.3155, -40.3128]);
     const [dateTime, setDateTime] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [saving, setSaving] = useState(false);
 
+    const dataMinima = new Date().toISOString().slice(0, 16);
+
+
     function CliqueNoMapa() {
         const map = useMapEvents({
             click(e) {
                 const { lat, lng } = e.latlng;
-                setPosicao([lat, lng]); 
-                map.setView([lat, lng], map.getZoom()); 
+                setPosicao([lat, lng]);
+                map.setView([lat, lng], map.getZoom());
             },
         });
         return null;
@@ -39,6 +43,15 @@ function NewEvent() {
 
     const handleCriarEvento = async (e) => {
         e.preventDefault();
+
+        const dataSelecionada = new Date(dateTime);
+        const agora = new Date();
+
+        if (dataSelecionada < agora) {
+            alert("Não é possível cadastrar um evento com data e hora que já passaram!");
+            return;
+        }
+
         setSaving(true);
 
         try {
@@ -61,10 +74,22 @@ function NewEvent() {
         }
     };
 
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <div className="loader-visual">
+                    <div className="dot"></div>
+                    <div className="outline"></div>
+                </div>
+                <p className="loading-text">Carregando...</p>
+            </div>
+        );
+    }
+
     return (
         <div className="edit-event-container">
             <VoltarButton />
-            
+
             <div className="header-container">
                 <h2 className="events-title">Criar Novo Evento</h2>
             </div>
@@ -72,21 +97,21 @@ function NewEvent() {
             <form onSubmit={handleCriarEvento} className="edit-event-form">
                 <div className="form-group">
                     <label>Nome do Evento</label>
-                    <input 
-                        type="text" 
-                        value={eventName} 
-                        onChange={(e) => setEventName(e.target.value)} 
+                    <input
+                        type="text"
+                        value={eventName}
+                        onChange={(e) => setEventName(e.target.value)}
                         placeholder="Ex: Workshop de Geoprocessamento e Spark"
-                        required 
+                        required
                     />
                 </div>
 
                 <div className="form-group">
                     <label>URL da Imagem do Card</label>
-                    <input 
-                        type="text" 
-                        value={imageUrl} 
-                        onChange={(e) => setImageUrl(e.target.value)} 
+                    <input
+                        type="text"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
                         placeholder="Ex: https://images.unsplash.com/..."
                     />
                     {imageUrl && (
@@ -99,17 +124,17 @@ function NewEvent() {
 
                 <div className="form-group">
                     <label>Nome do Local (Identificação)</label>
-                    <input 
-                        type="text" 
-                        value={localNome} 
-                        onChange={(e) => setLocalNome(e.target.value)} 
-                        required 
+                    <input
+                        type="text"
+                        value={localNome}
+                        onChange={(e) => setLocalNome(e.target.value)}
+                        required
                         placeholder="Ex: Laboratório de Informática 04 - Prédio Rosa"
                     />
-                    
+
                     <label style={{ marginTop: '10px' }}>Selecione o Ponto no Mapa para o Check-In:</label>
                     <p className="map-help-text">Clique no mapa com a mira de precisão para marcar o local.</p>
-                    
+
                     <div className="leaflet-wrapper">
                         <MapContainer center={posicao} zoom={16} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
                             <TileLayer
@@ -120,7 +145,7 @@ function NewEvent() {
                             <CliqueNoMapa />
                         </MapContainer>
                     </div>
-                    
+
                     <span className="coords-indicator">
                         Lat: {posicao[0].toFixed(6)} | Lng: {posicao[1].toFixed(6)}
                     </span>
@@ -128,11 +153,12 @@ function NewEvent() {
 
                 <div className="form-group">
                     <label>Data e Hora do Evento</label>
-                    <input 
-                        type="datetime-local" 
-                        value={dateTime} 
-                        onChange={(e) => setDateTime(e.target.value)} 
-                        required 
+                    <input
+                        type="datetime-local"
+                        value={dateTime}
+                        onChange={(e) => setDateTime(e.target.value)}
+                        min={dataMinima}
+                        required
                     />
                 </div>
 
