@@ -36,14 +36,28 @@ function EventoItem({ image, eventName, local, dateTime, isAdmin, onEdit, onDele
 
                 if (agora < inicio) {
                     const dif = inicio - agora;
-                    const min = Math.floor(dif / 60000);
-                    const seg = Math.floor((dif % 60000) / 1000);
+
+                    const dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+                    const horas = Math.floor((dif % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutos = Math.floor((dif % (1000 * 60 * 60)) / (1000 * 60));
+                    const segundos = Math.floor((dif % (1000 * 60)) / 1000);
+
                     setStatusLabel("Aguardando...");
-                    setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
+
+                    if (dias > 0) {
+                        setTempoRestante(`${dias}d ${horas.toString().padStart(2, '0')}h`);
+                    } else {
+                        setTempoRestante(
+                            `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`
+                        );
+                    }
+
                 } else if (agora >= inicio && agora <= limite) {
                     const dif = limite - agora;
+
                     const min = Math.floor(dif / 60000);
                     const seg = Math.floor((dif % 60000) / 1000);
+                    
                     setStatusLabel("Aberto");
                     setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
                 } else {

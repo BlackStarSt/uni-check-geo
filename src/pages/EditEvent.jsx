@@ -102,6 +102,7 @@ function EditEvent() {
 
         if (dataEvento < agora) {
             alert("A data do evento não pode ser inferior ao momento atual!");
+            setSaving(false);
             return;
         }
         

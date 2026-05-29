@@ -49,6 +49,7 @@ function NewEvent() {
 
         if (dataSelecionada < agora) {
             alert("Não é possível cadastrar um evento com data e hora que já passaram!");
+            setSaving(false);
             return;
         }
 
