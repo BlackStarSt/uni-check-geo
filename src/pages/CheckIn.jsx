@@ -77,10 +77,17 @@ function CheckIn() {
 
             if (agora < inicioEvento) {
                 const difParaAbrir = inicioEvento - agora;
+
+                const horas = Math.floor(difParaAbrir / (1000 * 60 * 60));
                 const min = Math.floor((difParaAbrir % (1000 * 60 * 60)) / (1000 * 60));
                 const seg = Math.floor((difParaAbrir % (1000 * 60)) / 1000);
 
-                setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
+                if (horas > 0) {
+                    setTempoRestante(`${horas.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
+                } else {
+                    setTempoRestante(`${min.toString().padStart(2, '0')}:${seg.toString().padStart(2, '0')}`);
+                }
+
                 setIsTimeValid(false);
                 return;
             }
